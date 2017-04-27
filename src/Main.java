@@ -8,6 +8,8 @@ import java.io.*;
 
 
 public class Main {
+   static Record testRecord = new Record();
+
     public static void main(String[] args)throws IOException {
         List<String> lines = new ArrayList<String>();
         BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Michał\\Desktop\\IO_Input.txt"));
@@ -17,6 +19,18 @@ public class Main {
             lines.add(line);
             line = br.readLine();
         }
+
+
+        for (String item : lines){
+            testRecord.lineReader(item);
+
+            boolean test2 = true;
+        }
+
+
+
+
+
         boolean test = true;
 
     }
