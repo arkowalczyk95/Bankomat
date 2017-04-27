@@ -5,8 +5,24 @@ public class Client {
     int accountState;
     String name;
     int PIN;
-    
 
+    public int getAccountState() {
+        return accountState;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPIN() {
+        return PIN;
+    }
+
+    public Client(String name, int PIN) {
+        this.name = name;
+        this.PIN = PIN;
+        this.accountState = 1000;
+    }
 
     public void increase(int x){
 
@@ -18,7 +34,6 @@ public class Client {
         accountState = accountState - x;
     }
 
-    public int check(){
-        return accountState;
-    }
+
+
 }
