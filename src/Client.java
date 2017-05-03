@@ -25,13 +25,14 @@ public class Client {
     }
 
     public void increase(int x){
-
+        if(x>1000) x = 1000;
         accountState = accountState + x;
     }
 
     public void decrease(int x){
-
-        accountState = accountState - x;
+        if(x>1000) x = 1000;
+        if(accountState - x > 0) accountState = accountState - x;
+        else accountState = 0;
     }
 
 

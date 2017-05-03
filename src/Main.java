@@ -9,6 +9,7 @@ import java.io.*;
 
 public class Main {
    static Record recordHandler = new Record();
+    static Report reportHandler = new Report();
     static String inputFilePath = "C:\\Users\\Michał\\Desktop\\IO_Input.txt";
     static String outputFilePath = "C:\\Users\\Michał\\Desktop\\IO_Output.txt" ;
 
@@ -21,7 +22,11 @@ public class Main {
         List<String> lines = new ArrayList<String>();
         List<Client> ClientList = new ArrayList<Client>();
         BufferedReader br = new BufferedReader(new FileReader(inputFilePath));
+        File log = new File(Main.outputFilePath);
+        log.delete();
+
         String line = br.readLine();
+        int lineCount =0;
         while (line != null)
         {
             lines.add(line);
@@ -40,7 +45,7 @@ public class Main {
                         break;
                     case "outcome": ClientList.get(clientNumber).decrease(Integer.parseInt(tmpClient[5]));
                         break;
-                    case "ACCOUNT":ClientList.get(clientNumber).getAccountState();
+                    case "ACCOUNT"://ClientList.get(clientNumber).getAccountState();
                         break;
 
 
@@ -51,7 +56,22 @@ public class Main {
                 Client clientHandler = new Client(tmpClient[2],Integer.parseInt(tmpClient[3]));
                 ClientList.add(clientHandler);
             }
+
+            lineCount++;
+            if(lineCount == 100){
+                reportHandler.write(ClientList);
+
+
+
+                lineCount =0;
+
+
+            }
+
+
+
             boolean test2 = true;
+
         }
 
 
