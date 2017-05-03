@@ -3,59 +3,32 @@
  */
 import java.util.*;
 
-
-
-
-
 public class Record {
 
-    public  boolean clientExists(String x, List<Client> y){
-        boolean e = false;
-        for (Client item:y) {
-            if(x.equals(item.getName()))e=true;
+    public boolean clientExists(String x, List<Client> y) {
+        boolean b = false;
+        for (Client item : y) {
+            if (x.equals(item.getName())) b = true;
         }
-        if (e==true)return true;
+        if (b == true) return true;
         else return false;
     }
 
-
-
-    public int findClient(String x, List<Client> y){
-            int a=0;
-            boolean exists = false;
-            for (Client item : y) {
-                if (x.equals(item.getName())) {
-                    exists = true;
-                    a = y.indexOf(item);
-                }
+    public Client findClient(String x, List<Client> y) {
+        for (Client item : y) {
+            if (x.equals(item.getName())) {
+                return item;
             }
-
-                if (!exists){
-                    System.out.println("Client doesn't exists");
-                    return 2147483647;
-                }
-                    else return a;
-
-
+        }
+        return null;
 
     }
 
-
-
-
-    public String[] lineReader(String line){
-             String[] parts = line.split(",");
-             return parts;
-
-
-
-
-
+    public String[] lineReader(String line) {
+        String[] parts = line.split(",");
+        return parts;
 
 
     }
-
-
-
 
 }

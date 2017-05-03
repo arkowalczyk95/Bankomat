@@ -33,17 +33,10 @@ public class Report {
                 }
             }
 
-
-
             bufferedWriter.close();
 
         } catch(IOException e) {
             System.out.println("COULD NOT LOG!!");
         }
-
-
-
-
-
     }
 }

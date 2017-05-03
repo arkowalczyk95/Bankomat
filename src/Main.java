@@ -9,9 +9,8 @@ import java.io.*;
 public class Main {
     static Record recordHandler = new Record();
     static Report reportHandler = new Report();
-    static String inputFilePath = "C:\\Users\\Michał\\Desktop\\IO_Input.txt";
-    static String outputFilePath = "C:\\Users\\Michał\\Desktop\\IO_Output.txt";
-
+    static String inputFilePath = "C:\\Users\\Arek\\Desktop\\IO_Input.txt";
+    static String outputFilePath = "C:\\Users\\Arek\\Desktop\\IO_Output.txt";
 
     public static void main(String[] args) throws IOException {
         List<String> lines = new ArrayList<String>();
@@ -25,53 +24,35 @@ public class Main {
             lines.add(line);
             line = br.readLine();
         }
-
-
         for (String item : lines) {
             String[] tmpClient = recordHandler.lineReader(item);
             if (recordHandler.clientExists(tmpClient[2], ClientList)) {
-                int clientNumber = recordHandler.findClient(tmpClient[2], ClientList);
-                if (Integer.parseInt(tmpClient[3])  == ClientList.get(clientNumber).getPIN()&&!(ClientList.get(clientNumber).isCorrupted())) {
+                Client client = recordHandler.findClient(tmpClient[2], ClientList);
+                if (Integer.parseInt(tmpClient[3]) == client.getPIN() && !(client.isCorrupted())) {
                     switch (tmpClient[4]) {
                         case "income":
-                            ClientList.get(clientNumber).increase(Integer.parseInt(tmpClient[5]));
+                            client.increase(Integer.parseInt(tmpClient[5]));
                             break;
                         case "outcome":
-                            ClientList.get(clientNumber).decrease(Integer.parseInt(tmpClient[5]));
+                            client.decrease(Integer.parseInt(tmpClient[5]));
                             break;
-                        case "ACCOUNT"://ClientList.get(clientNumber).getAccountState();
+                        case "ACCOUNT"://client.getAccountState();
                             break;
-
-
                     }
-                }
-                else{
-                    ClientList.get(clientNumber).missStrike();
-                    if(ClientList.get(clientNumber).getMiss() >= 3) ClientList.get(clientNumber).corruptClient();
+                } else {
+                    client.missStrike();
+                    if (client.getMiss() >= 3) client.corruptClient();
                 }
             } else {
                 Client clientHandler = new Client(tmpClient[2], Integer.parseInt(tmpClient[3]));
                 ClientList.add(clientHandler);
             }
-
             lineCount++;
             if (lineCount == 100) {
                 reportHandler.write(ClientList);
-
-
                 lineCount = 0;
-
-
             }
-
-
-            boolean test2 = true;
-
         }
-
-
-        boolean test = true;
-
     }
 
 }
