@@ -8,11 +8,19 @@ import java.io.*;
 
 
 public class Main {
-   static Record testRecord = new Record();
+   static Record recordHandler = new Record();
+    static String inputFilePath = "C:\\Users\\Michał\\Desktop\\IO_Input.txt";
+    static String outputFilePath = "C:\\Users\\Michał\\Desktop\\IO_Output.txt" ;
+
+
+
+
+
 
     public static void main(String[] args)throws IOException {
         List<String> lines = new ArrayList<String>();
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Michał\\Desktop\\IO_Input.txt"));
+        List<Client> ClientList = new ArrayList<Client>();
+        BufferedReader br = new BufferedReader(new FileReader(inputFilePath));
         String line = br.readLine();
         while (line != null)
         {
@@ -22,8 +30,27 @@ public class Main {
 
 
         for (String item : lines){
-            testRecord.lineReader(item);
+            String[] tmpClient = recordHandler.lineReader(item);
+            if(recordHandler.clientExists(tmpClient[2],ClientList)){
+               int clientNumber =  recordHandler.findClient(tmpClient[2],ClientList);
 
+
+                switch (tmpClient[4]){
+                    case "income": 
+                        break;
+                    case "outcome":
+                        break;
+                    case "ACCOUNT":
+                        break;
+
+
+
+                }
+            }
+            else {
+                Client clientHandler = new Client(tmpClient[2],Integer.parseInt(tmpClient[3]));
+                ClientList.add(clientHandler);
+            }
             boolean test2 = true;
         }
 
