@@ -5,6 +5,8 @@ public class Client {
     int accountState;
     String name;
     int PIN;
+    int miss;
+    boolean corrupted;
 
     public int getAccountState() {
         return accountState;
@@ -18,10 +20,20 @@ public class Client {
         return PIN;
     }
 
+    public int getMiss() {
+        return miss;
+    }
+
+    public boolean isCorrupted() {
+        return corrupted;
+    }
+
     public Client(String name, int PIN) {
         this.name = name;
         this.PIN = PIN;
         this.accountState = 1000;
+        this.miss = 0;
+        this.corrupted =false;
     }
 
     public void increase(int x){
@@ -35,6 +47,12 @@ public class Client {
         else accountState = 0;
     }
 
+    public void missStrike(){
+        miss++;
+    }
 
+    public void corruptClient(){
+        corrupted = true;
+    }
 
 }

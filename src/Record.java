@@ -21,14 +21,22 @@ public class Record {
 
 
     public int findClient(String x, List<Client> y){
-
-            int a =   2147483647;
+            int a=0;
+            boolean exists = false;
             for (Client item : y) {
-                if (x.equals(item.getName())) a = y.indexOf(item);
-
+                if (x.equals(item.getName())) {
+                    exists = true;
+                    a = y.indexOf(item);
+                }
             }
-            if(a==2147483647) System.out.println("Client doesn't exists");
-            return a;
+
+                if (!exists){
+                    System.out.println("Client doesn't exists");
+                    return 2147483647;
+                }
+                    else return a;
+
+
 
     }
 
