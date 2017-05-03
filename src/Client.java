@@ -24,14 +24,14 @@ public class Client {
         this.accountState = 1000;
     }
 
-    public void increase(Client y,int x){
+    public void increase(int x){
 
-        y.accountState = y.accountState + x;
+        accountState = accountState + x;
     }
 
-    public void decrease(Client y,int x){
+    public void decrease(int x){
 
-        y.accountState = y.accountState - x;
+        accountState = accountState - x;
     }
 
 

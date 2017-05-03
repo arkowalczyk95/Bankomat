@@ -36,11 +36,11 @@ public class Main {
 
 
                 switch (tmpClient[4]){
-                    case "income": 
+                    case "income": ClientList.get(clientNumber).increase(Integer.parseInt(tmpClient[5]));
                         break;
-                    case "outcome":
+                    case "outcome": ClientList.get(clientNumber).decrease(Integer.parseInt(tmpClient[5]));
                         break;
-                    case "ACCOUNT":
+                    case "ACCOUNT":ClientList.get(clientNumber).getAccountState();
                         break;
 
 
