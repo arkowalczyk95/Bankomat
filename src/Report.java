@@ -23,8 +23,14 @@ public class Report {
             bufferedWriter.write("******* " + timeStamp.getTime()+"******* ");
             bufferedWriter.newLine();
             for (Client item:x) {
-                bufferedWriter.write(item.getName()+","+item.getAccountState());
-                bufferedWriter.newLine();
+                if(item.isCorrupted()){
+                    bufferedWriter.write(item.getName()+","+item.getAccountState()+"BLOCKED");
+                    bufferedWriter.newLine();
+                }
+                else {
+                    bufferedWriter.write(item.getName() + "," + item.getAccountState());
+                    bufferedWriter.newLine();
+                }
             }
 
 
