@@ -20,11 +20,11 @@ public class Report {
             FileWriter fileWriter = new FileWriter(log, true);
 
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write("******* " + timeStamp.getTime()+"******* ");
+            bufferedWriter.write("*******" + timeStamp.getTime()+"******* ");
             bufferedWriter.newLine();
             for (Client item:x) {
                 if(item.isCorrupted()){
-                    bufferedWriter.write(item.getName()+","+item.getAccountState()+"BLOCKED");
+                    bufferedWriter.write(item.getName()+","+item.getAccountState()+" BLOCKED");
                     bufferedWriter.newLine();
                 }
                 else {
