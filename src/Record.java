@@ -25,10 +25,15 @@ public class Record {
     }
 
     public String[] lineReader(String line) {
-        String[] parts = line.split(",");
-        return parts;
+        try {
+            String[] parts = line.split(",");
+            return parts;
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Błędny typ danych wejściowych");
+        }
 
-
+        return null;
     }
 
 }

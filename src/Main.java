@@ -9,10 +9,12 @@ import java.io.*;
 public class Main {
     static Record recordHandler = new Record();
     static Report reportHandler = new Report();
-    static String inputFilePath = "C:\\Users\\Arek\\Desktop\\IO_Input.txt";
-    static String outputFilePath = "C:\\Users\\Arek\\Desktop\\IO_Output.txt";
+    static String inputFilePath = "C:\\Users\\Michał\\Desktop\\DataInputGroupF.csv";
+    //static String inputFilePath = "C:\\Users\\Michał\\Desktop\\IO_Input_Bad.txt";
+    static String outputFilePath = "C:\\Users\\Michał\\Desktop\\IO_Output.txt";
 
     public static void main(String[] args) throws IOException {
+        final long startTime = System.currentTimeMillis();
         List<String> lines = new ArrayList<String>();
         List<Client> ClientList = new ArrayList<Client>();
         BufferedReader br = new BufferedReader(new FileReader(inputFilePath));
@@ -26,33 +28,49 @@ public class Main {
         }
         for (String item : lines) {
             String[] tmpClient = recordHandler.lineReader(item);
-            if (recordHandler.clientExists(tmpClient[2], ClientList)) {
-                Client client = recordHandler.findClient(tmpClient[2], ClientList);
-                if (Integer.parseInt(tmpClient[3]) == client.getPIN() && !(client.isCorrupted())) {
-                    switch (tmpClient[4]) {
-                        case "income":
-                            client.increase(Integer.parseInt(tmpClient[5]));
-                            break;
-                        case "outcome":
-                            client.decrease(Integer.parseInt(tmpClient[5]));
-                            break;
-                        case "ACCOUNT"://client.getAccountState();
-                            break;
+            try {
+                if (recordHandler.clientExists(tmpClient[2], ClientList)) {
+                    Client client = recordHandler.findClient(tmpClient[2], ClientList);
+                    if (Integer.parseInt(tmpClient[3]) == client.getPIN() && !(client.isCorrupted())) {
+                        switch (tmpClient[5]) {
+                            case "income;":
+                                client.increase(Float.parseFloat(tmpClient[4]));
+                                break;
+                            case "outcome;":
+                                client.decrease(Float.parseFloat(tmpClient[4]));
+                                break;
+                            case "ACCOUNT;"://client.getAccountState();
+                                break;
+                            default:
+                                System.out.println("Błędny typ operacji");
+                                break;
+                        }
+                    } else {
+                        client.missStrike();
+                        if (client.getMiss() >= 3) client.corruptClient();
                     }
                 } else {
-                    client.missStrike();
-                    if (client.getMiss() >= 3) client.corruptClient();
+                    try {
+                        Client clientHandler = new Client(tmpClient[2], Integer.parseInt(tmpClient[3]));
+                        ClientList.add(clientHandler);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Podano błędny PIN");
+                    }
                 }
-            } else {
-                Client clientHandler = new Client(tmpClient[2], Integer.parseInt(tmpClient[3]));
-                ClientList.add(clientHandler);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Błędny typ danych wejściowych");
             }
+
             lineCount++;
             if (lineCount == 100) {
                 reportHandler.write(ClientList);
                 lineCount = 0;
             }
         }
+        final long endTime = System.currentTimeMillis();
+
+        System.out.println("Total execution time: " + (endTime - startTime));
+        System.out.println("Total memory used: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/(1024*1024));
     }
 
 }

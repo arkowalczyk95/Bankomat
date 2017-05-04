@@ -28,7 +28,7 @@ public class Report {
                     bufferedWriter.newLine();
                 }
                 else {
-                    bufferedWriter.write(item.getName() + "," + item.getAccountState());
+                    bufferedWriter.write(item.getName() + "," + item.getAccountState()+ "," + item.getMiss());
                     bufferedWriter.newLine();
                 }
             }

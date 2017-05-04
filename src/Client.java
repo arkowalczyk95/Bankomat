@@ -2,13 +2,13 @@
  * Created by Michał on 2017-04-27.
  */
 public class Client {
-    int accountState;
+    float accountState;
     String name;
     int PIN;
     int miss;
     boolean corrupted;
 
-    public int getAccountState() {
+    public float getAccountState() {
         return accountState;
     }
 
@@ -36,12 +36,12 @@ public class Client {
         this.corrupted =false;
     }
 
-    public void increase(int x){
+    public void increase(float x){
         if(x>1000) x = 1000;
         accountState = accountState + x;
     }
 
-    public void decrease(int x){
+    public void decrease(float x){
         if(x>1000) x = 1000;
         if(accountState - x > 0) accountState = accountState - x;
         else accountState = 0;
