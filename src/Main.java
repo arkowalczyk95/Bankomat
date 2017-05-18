@@ -10,9 +10,9 @@ import java.io.*;
 public class Main {
     static Record recordHandler = new Record();
     static Report reportHandler = new Report();
-    static String inputFilePath = "C:\\Users\\Michał\\Desktop\\DataInputGroupF.csv";
+    static String inputFilePath = "C:\\Users\\Michał\\Desktop\\TestyAkceptacyjneGrupaF.csv";//ścieżka zawierająca dane wejściowe
     //static String inputFilePath = "C:\\Users\\Michał\\Desktop\\IO_Input_Bad.txt";
-    static String outputFilePath = "C:\\Users\\Michał\\Desktop\\IO_Output.txt";
+    static String outputFilePath = "C:\\Users\\Michał\\Desktop\\IO_Output.txt";//ścieżka do pliku zawierającego raporty
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
         final long startTime = System.currentTimeMillis();
@@ -32,19 +32,24 @@ public class Main {
             try {
                 if (recordHandler.clientExists(tmpClient[2], ClientList)) {
                     Client client = recordHandler.findClient(tmpClient[2], ClientList);
-                    if (tmpClient[3].equals(client.getPIN())  && !(client.isCorrupted())) {
-                        switch (tmpClient[5]) {
-                            case "income;":
-                                client.increase(Float.parseFloat(tmpClient[4]));
-                                break;
-                            case "outcome;":
-                                client.decrease(Float.parseFloat(tmpClient[4]));
-                                break;
-                            case "ACCOUNT;"://client.getAccountState();
-                                break;
-                            default:
-                                System.out.println("Błędny typ operacji");
-                                break;
+                    if (tmpClient[3].equals(client.getPIN()) && !(client.isCorrupted())) {
+                        try {
+                            switch (tmpClient[5]) {
+                                case "income;":
+                                    client.increase(Float.parseFloat(tmpClient[4]));
+                                    break;
+                                case "outcome;":
+                                    client.decrease(Float.parseFloat(tmpClient[4]));
+                                    break;
+                                case "ACCOUNT;":
+                                    client.getAccountState();
+                                    break;
+                                default:
+                                    System.out.println("Błędny typ operacji" + tmpClient[1]);
+                                    break;
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Błędny typ kwoty operacji" + tmpClient[1]);
                         }
                     } else {
                         client.missStrike();
@@ -55,15 +60,16 @@ public class Main {
                         Client clientHandler = new Client(tmpClient[2], tmpClient[3]);
                         ClientList.add(clientHandler);
                     } catch (NumberFormatException e) {
-                        System.out.println("Podano błędny PIN");
+                        System.out.println("Podano błędny PIN" + tmpClient[1]);
                     }
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Błędny typ danych wejściowych");
+                System.out.println("Błędny typ danych wejściowych" + tmpClient[1]);
             }
-
+            //zliczanie logów do raportu
             lineCount++;
             if (lineCount == 100) {
+                //generowanie raportu
                 reportHandler.write(ClientList);
                 lineCount = 0;
             }
@@ -71,7 +77,7 @@ public class Main {
         final long endTime = System.currentTimeMillis();
 
         System.out.println("Total execution time: " + (endTime - startTime));
-        System.out.println("Total memory used: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/(1024*1024));
+        System.out.println("Total memory used: " + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / (1024 * 1024));
     }
 
 }

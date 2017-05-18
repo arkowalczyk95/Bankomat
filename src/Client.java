@@ -34,25 +34,27 @@ public class Client {
         this.PIN = PIN;
         this.accountState = 1000;
         this.miss = 0;
-        this.corrupted =false;
+        this.corrupted = false;
     }
 
-    public void increase(float x){
-        if(x>1000) x = 1000;
+    public void increase(float x) {
+        if (x > 1000) x = 1000;
         accountState = accountState + x;
     }
 
-    public void decrease(float x){
-        if(x>1000) x = 1000;
-        if(accountState - x > 0) accountState = accountState - x;
+    public void decrease(float x) {
+        if (x > 1000) x = 1000;
+        if (accountState - x > 0) accountState = accountState - x;
         else accountState = 0;
     }
 
-    public void missStrike(){
+
+    //metoda zliczjąca błędne podania PINu
+    public void missStrike() {
         miss++;
     }
 
-    public void corruptClient(){
+    public void corruptClient() {
         corrupted = true;
     }
 

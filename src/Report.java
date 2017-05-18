@@ -12,31 +12,29 @@ public class Report {
     public void write(List<Client> x) throws FileNotFoundException {
         Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
         File log = new File(Main.outputFilePath);
-        //PrintWriter zapis = new PrintWriter(Main.outputFilePath);
-        try{
-            if(!log.exists()){
+        try {
+            if (!log.exists()) {
                 log.createNewFile();
             }
 
             FileWriter fileWriter = new FileWriter(log, true);
 
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write("*******" + timeStamp.getTime()+"******* ");
+            bufferedWriter.write("*******" + timeStamp.getTime() + "******* ");
             bufferedWriter.newLine();
-            for (Client item:x) {
-                if(item.isCorrupted()){
-                    bufferedWriter.write(item.getName()+","+item.getAccountState()+" BLOCKED");
+            for (Client item : x) {
+                if (item.isCorrupted()) {
+                    bufferedWriter.write(item.getName() + "," + item.getAccountState() + " BLOCKED");
                     bufferedWriter.newLine();
-                }
-                else {
-                    bufferedWriter.write(item.getName() + "," + item.getAccountState()+ "," + item.getMiss());
+                } else {
+                    bufferedWriter.write(item.getName() + "," + item.getAccountState() + "," + item.getMiss());
                     bufferedWriter.newLine();
                 }
             }
 
             bufferedWriter.close();
 
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("COULD NOT LOG!!");
         }
     }
