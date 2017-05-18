@@ -1,7 +1,9 @@
 /**
  * Created by Michał on 2017-04-27.
  */
+import java.math.BigInteger;
 import java.util.*;
+import java.security.*;
 
 public class Record {
 
@@ -23,10 +25,21 @@ public class Record {
         return null;
 
     }
+    public String Encode(String x)throws NoSuchAlgorithmException{
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] messageDigest = md.digest(x.getBytes());
+        BigInteger number = new BigInteger(1, messageDigest);
+        String coded = number.toString(16);
+        return coded;
 
-    public String[] lineReader(String line) {
+    }
+
+
+
+    public String[] lineReader(String line) throws NoSuchAlgorithmException{
         try {
             String[] parts = line.split(",");
+            parts[3] = Encode(parts[3]);
             return parts;
         }
         catch (ArrayIndexOutOfBoundsException e){

@@ -2,6 +2,7 @@
  * Created by Michał on 2017-04-27.
  */
 
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.io.*;
 
@@ -13,7 +14,7 @@ public class Main {
     //static String inputFilePath = "C:\\Users\\Michał\\Desktop\\IO_Input_Bad.txt";
     static String outputFilePath = "C:\\Users\\Michał\\Desktop\\IO_Output.txt";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
         final long startTime = System.currentTimeMillis();
         List<String> lines = new ArrayList<String>();
         List<Client> ClientList = new ArrayList<Client>();
@@ -31,7 +32,7 @@ public class Main {
             try {
                 if (recordHandler.clientExists(tmpClient[2], ClientList)) {
                     Client client = recordHandler.findClient(tmpClient[2], ClientList);
-                    if (Integer.parseInt(tmpClient[3]) == client.getPIN() && !(client.isCorrupted())) {
+                    if (tmpClient[3].equals(client.getPIN())  && !(client.isCorrupted())) {
                         switch (tmpClient[5]) {
                             case "income;":
                                 client.increase(Float.parseFloat(tmpClient[4]));
@@ -51,7 +52,7 @@ public class Main {
                     }
                 } else {
                     try {
-                        Client clientHandler = new Client(tmpClient[2], Integer.parseInt(tmpClient[3]));
+                        Client clientHandler = new Client(tmpClient[2], tmpClient[3]);
                         ClientList.add(clientHandler);
                     } catch (NumberFormatException e) {
                         System.out.println("Podano błędny PIN");

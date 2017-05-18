@@ -4,7 +4,7 @@
 public class Client {
     float accountState;
     String name;
-    int PIN;
+    String PIN;
     int miss;
     boolean corrupted;
 
@@ -16,7 +16,7 @@ public class Client {
         return name;
     }
 
-    public int getPIN() {
+    public String getPIN() {
         return PIN;
     }
 
@@ -28,7 +28,7 @@ public class Client {
         return corrupted;
     }
 
-    public Client(String name, int PIN) {
+    public Client(String name, String PIN) {
         this.name = name;
         this.PIN = PIN;
         this.accountState = 1000;
