@@ -7,6 +7,7 @@ import java.util.*;
  * Created by Administrator on 2017-04-27.
  */
 public class Report {
+    //Klasa odpowiedzialna za przygotowywanie i publikowanie raportu
 
     public void write(List<Client> x) throws FileNotFoundException {
         Timestamp timeStamp = new Timestamp(System.currentTimeMillis());

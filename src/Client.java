@@ -2,6 +2,7 @@
  * Created by Michał on 2017-04-27.
  */
 public class Client {
+    //Klasa odpowiedzialna za zarządzanie lokalną "bazą danych" klientów, zmienianiem stanu konta.
     float accountState;
     String name;
     String PIN;

@@ -6,6 +6,7 @@ import java.util.*;
 import java.security.*;
 
 public class Record {
+    //Klasa zarządzajaca otrzymanymi danymi wejściowymi, sporwadza je do formatu obsługiwanego przez program, koduje PIN
 
     public boolean clientExists(String x, List<Client> y) {
         boolean b = false;
